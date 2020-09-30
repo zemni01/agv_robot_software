@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" args="/scan" >
+    <param name="delta" type="double" value="0.05" />
+    <param name="temporalUpdate" type="double" value="2.5" />
+    <param name="xmin" type="double" value="-2" />
+    <param name="xmax" type="double" value="2" />
+    <param name="ymin" type="double" value="-2" />
+    <param name="ymax" type="double" value="2" />
+    <!-- <param name="	map_update_interval" value="3.0"/>
+    <param name="particules" value="20" /> -->
+
+  </node>
+
+</launch>

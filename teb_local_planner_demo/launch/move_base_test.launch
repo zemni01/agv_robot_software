@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- Run the map server  willowgarage.yaml"/> -->
+  <arg name="map" default=""/>
+  <!--node name="map_server" pkg="map_server" type="map_server" args="$(arg map).yaml"/-->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find teb_local_planner_demo)/enova_big1.yaml"/>
+  <!--arg name="map" default=""/-->
+  <!--node name="map_server" pkg="map_server" type="map_server" args="$(arg map).yaml"/-->
+  <!--node pkg="tf" type="static_transform_publisher" name="nnn" args="0 0 0 0 0 0 odom map 100"/-->
+
+  <!--- Run AMCL -->
+  <!--- We load ACML here with diff=true to support our differential drive robot -->
+  <include file="$(find amcl)/examples/amcl_diff.launch" />
+
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find teb_local_planner_demo)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find teb_local_planner_demo)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find teb_local_planner_demo)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find teb_local_planner_demo)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find teb_local_planner_demo)/config/base_local_planner_params.yaml" command="load" />
+
+    <rosparam file="$(find teb_local_planner_demo)/config/move_base_params.yaml" command="load" />
+    <rosparam file="$(find teb_local_planner_demo)/config/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find teb_local_planner_demo)/config/navfn_global_planner_params.yaml" command="load" />
+    <!--rosparam file="$(find teb_local_planner_tutorials)/cfg/diff_drive/teb_local_planner_params.yaml" command="load" /-->
+    <!-- Here we load our costmap conversion settings -->
+	<!--rosparam file="$(find teb_local_planner_demo)/config/costmap_converter_params.yaml" command="load" /> 
+        <remap from="cmd_vel" to="cmd_vel_m"/>
+	<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+	<param name="planner_frequency" value="1.0" />
+	<param name="planner_patience" value="15.0" />
+
+	<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+	<param name="controller_frequency" value="2.0" />
+	<param name="controller_patience" value="20.0" /-->
+
+  </node>
+  
+</launch>

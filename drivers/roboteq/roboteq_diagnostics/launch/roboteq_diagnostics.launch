@@ -1,0 +1,16 @@
+<launch>
+    <node pkg="roboteq_diagnostics" type="diagnostic_publisher" name="diagnostic_rl" output="screen">
+
+        <param name="roboteq" value="left"/>
+	<param name="driver" value="roboteq_driver"/>
+        <remap from="/diagnostics" to="/diagnostics_roboteq_left" />
+    </node>
+
+    <node pkg="roboteq_diagnostics" type="diagnostic_publisher" name="diagnostic_rr" output="screen">
+
+        <param name="roboteq" value="right"/>
+	<param name="driver" value="roboteq_driver"/>
+        <remap from="/diagnostics" to="/diagnostics_roboteq_right" />
+    </node>
+
+</launch>
